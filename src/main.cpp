@@ -1,27 +1,27 @@
 #include <Arduino.h>
-#define BLYNK_TEMPLATE_ID "TMPL6TLe5GhuT"
+#define BLYNK_TEMPLATE_ID "BLYNK_TEMPLATE_ID"
 #define BLYNK_TEMPLATE_NAME "CAR ROBOT CONTROLLER"
 #define BLYNK_DEVICE_NAME "CAR ROBOT CONTROLLER"
-#define BLYNK_AUTH_TOKEN "hWzirinGJ6K0LYjDyxOlS55HMWcaYbeC"
+#define BLYNK_AUTH_TOKEN "BLYNK_AUTH_TOKEN"
 #define BLYNK_PRINT Serial
 #include <WiFi.h>
 #include <BlynkSimpleEsp32.h>
 #include <OLED_display.h>
 #include <sensor.h>
 
-const char ssid[] = "Qcatv-Thuy";
-const char pass[] = "0935379965";
-// Định nghĩa các chân hướng (Chỉ dùng digitalWrite)
+const char ssid[] = "my_ssid";
+const char pass[] = "my_password";
+// Define pin  (Chỉ dùng digitalWrite)
 const int IN1 = 12;
 const int IN2 = 14;
 const int IN3 = 27;
 const int IN4 = 26;
 
-// Định nghĩa các chân PWM tốc độ
+// Define pin for PWM speed control
 const int ENA = 13;
 const int ENB = 25;
 
-// ESP32 Core 2.x chỉ cần cấu hình 2 kênh PWM cho 2 chân EN
+// ESP32 Core 2.x only needs to configure 2 PWM channels for 2 EN pins
 const int ch_ENA = 0;     
 const int ch_ENB = 1;     
 
@@ -37,7 +37,6 @@ int speed1 = 0, speed2 = 0;
 int speed = 0;
 long last = 0, timeout = 10000;
 void setup() {
-  // Cấu hình các chân hướng là OUTPUT thông thường
   Serial.begin(115200);
   init_OLED();
   cool_display();
@@ -51,7 +50,7 @@ void setup() {
   pinMode(IN3, OUTPUT);
   pinMode(IN4, OUTPUT);
 
-  // Cấu hình PWM cho 2 chân Enable
+  // Configure PWM channels for speed control
   ledcSetup(ch_ENA, freq, resolution);
   ledcSetup(ch_ENB, freq, resolution);
   
@@ -185,17 +184,13 @@ void loop() {
 
   short sensor = readSensor();
   if (sensor == 1) {
-    Serial.println("Obstacle detected!.");
     danger_display();
   }
   else if (sensor == 2) {
-    Serial.println("Obstacle too close!.");
     danger_display();
     stopMotor(); // Stop the motor if an obstacle is too close
   }
   else {
-    Serial.println("No obstacle detected.");
     cool_display();
   }
 }
-
