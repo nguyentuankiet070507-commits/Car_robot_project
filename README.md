@@ -118,6 +118,7 @@ Create `include/config.h` (add to `.gitignore`):
 #define WIFI_PASSWORD "your-network-password"
 
 // Blynk authentication (KEEP PRIVATE - do not commit)
+#define BLYNK_TEMPLATE_ID "your-blynk-template-id"
 #define BLYNK_AUTH_TOKEN "your-blynk-auth-token"
 
 #endif // CONFIG_H
@@ -127,16 +128,17 @@ Update `src/main.cpp`:
 ```cpp
 #include <config.h>  // Remove hardcoded credentials, use this instead
 
-const char ssid[] = WIFI_SSID;
-const char pass[] = WIFI_PASSWORD;
 ```
 
 Add to `.gitignore`:
 ```
 include/config.h
-.vscode/
-.pio/
-build/
+.pio
+.vscode/.browse.c_cpp.db*
+.vscode/c_cpp_properties.json
+.vscode/launch.json
+.vscode/ipch
+
 ```
 
 ### Step 3: Setup Blynk App
@@ -375,6 +377,13 @@ By building this project, you master:
 - ✅ **Real-Time Systems** — Non-blocking loops, interrupt-safe operations
 - ✅ **Robotics Control** — H-bridge motor control, direction management, speed regulation
 - ✅ **Embedded Debugging** — Serial logging, state monitoring, connection recovery
+
+## 🥲 Difficulties
+
+During this project, I had some difficulties:
+- Missing encoder to balance speed of both motor (solved temporarily by ratio)
+- Missing PID algorithm to control
+- Limited budget
 
 ## 🚀 Future Enhancements
 
