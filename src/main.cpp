@@ -1,16 +1,13 @@
 #include <Arduino.h>
-#define BLYNK_TEMPLATE_ID "BLYNK_TEMPLATE_ID"
 #define BLYNK_TEMPLATE_NAME "CAR ROBOT CONTROLLER"
 #define BLYNK_DEVICE_NAME "CAR ROBOT CONTROLLER"
-#define BLYNK_AUTH_TOKEN "BLYNK_AUTH_TOKEN"
 #define BLYNK_PRINT Serial
+#include "config.h"
 #include <WiFi.h>
 #include <BlynkSimpleEsp32.h>
 #include <OLED_display.h>
 #include <sensor.h>
 
-const char ssid[] = "my_ssid";
-const char pass[] = "my_password";
 // Define pin  (Chỉ dùng digitalWrite)
 const int IN1 = 12;
 const int IN2 = 14;
@@ -41,7 +38,7 @@ void setup() {
   init_OLED();
   cool_display();
   initSensor();
-  WiFi.begin(ssid, pass);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
 
   Blynk.config(BLYNK_AUTH_TOKEN);
   Blynk.connect();
@@ -113,6 +110,8 @@ void stopMotor() {
 }
 BLYNK_WRITE(V0) {
   speed2 = param.asInt();
+  // Motor speed balance: left motor (128) runs faster than right (89) 
+  // This ratio makes them rotate at similar speeds when same PWM applied
   speed1 = (int) constrain(speed2 * 128 / 89, 0, MAX_SPEED);
 }
 BLYNK_WRITE(V1) {
@@ -152,7 +151,7 @@ void checkConnection() {
   if (WiFi.status() != WL_CONNECTED) {
     Serial.println("Lose connection!");
     WiFi.disconnect();
-    WiFi.begin(ssid, pass);
+    WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
 
     long start = millis();
 

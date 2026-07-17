@@ -22,7 +22,10 @@ short readSensor() {
   
   // Read the time of the reflected wave (in microseconds)
   duration = pulseIn(echoPin, HIGH, 30000); // Timeout after 30 ms to avoid blocking if no echo is received
-  
+  if (duration == 0) {
+    Serial.println("WARNING: Sensor disconnected!");
+    return -1;  // Error code
+  }
   // Calculate distance in centimeters
   distanceCm = duration * SOUND_SPEED / 2;
   
