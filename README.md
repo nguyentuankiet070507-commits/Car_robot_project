@@ -5,7 +5,7 @@ A sophisticated IoT robot car with real-time Blynk app control, obstacle avoidan
 ## 🎥 Demo Videos
 
 Watch the car in action:
-- **YouTube**: [Car Robot Full Demo](https://youtu.be/your-video-link) *(update with your actual link)*
+- **YouTube**: [Car Robot Full Demo](https://youtube.com/shorts/W8nna2d3xTk?feature=share) *(update with your actual link)*
 - **Features**: Remote Blynk control, obstacle detection, real-time speed adjustment
 
 ## 📋 Project Overview
